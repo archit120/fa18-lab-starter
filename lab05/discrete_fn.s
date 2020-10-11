@@ -8,6 +8,7 @@ pos2:	.asciiz "f(2) should be 42, and it is: "
 pos3:	.asciiz "f(3) should be 5, and it is: "
 
 output:	.word	6, 61, 17, -38, 19, 42, 5
+
 .text
 main:
 	la	a0, neg3
@@ -65,7 +66,10 @@ main:
 # calculate f(a0)
 f:
 	la	t0, output	# Hmm... why might this be a good idea?
-	
+	addi a0, a0, 3
+    slli t1, a0, 2
+    add t0, t0, t1
+    lw a0, 0(t0)
 	# YOUR CODE GOES HERE!
 	
 	jr	ra		# Always remember to jr ra after your function!

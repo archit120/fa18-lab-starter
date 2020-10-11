@@ -1,0 +1,42 @@
+Q.What do the .data, .word, .text directives mean (i.e. what do you use them for)? Hint: think about the 4 sections of memory.
+
+.data contains the variables for the assembly. Inside it we have .word sections that represent 8 byte variables in memory
+
+Q.Run the program to completion. What number did the program output? What does this number represent?
+
+34, 9th fibonacci number
+
+Q.At what address is n stored in memory? Hint: Look at the contents of the registers.
+
+0x10000010
+
+Q.Without using the "Edit" tab, have the program calculate the 13th fib number (0-indexed) by manually modifying the value of a register. You may find it helpful to first step through the code. If you prefer to look at decimal values, change the "Display Settings" option at the bottom.
+
+Change x28 after 5th instruction
+
+
+----
+
+Task: Find/explain the following components of this assembly file.
+
+The register representing the variable k. - t0
+
+The registers acting as pointers to the source and dest arrays. - t2,t1
+
+The assembly code for the loop found in the C code. - L28-35
+
+How the pointers are manipulated in the assembly code. - L28,32
+
+Q. Find the section of code in lab3_ex2.s that corresponds to the copying loop and explain how each line is used in manipulating the pointer.
+
+loop:
+    slli t3, t0, 2 # t3=4*t0
+    add t4, t1, t3 # t4 = A+t0*4
+    lw t5, 0(t4) # t5 = [t4]
+    beq t5, x0, exit # quit if t5 == 0
+    add t6, t2, t3 # t6 = B+t0*4
+    sw t5, 0(t6) # [t6] = t5
+    addi t0, t0, 1 # t0++
+    jal x0, loop  # restart loop
+
+Q3. Factorial done using loop
