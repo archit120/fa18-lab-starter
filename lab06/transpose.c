@@ -12,10 +12,33 @@ void transpose_naive(int n, int blocksize, int *dst, int *src) {
     } 
 }
 
+int min(int x, int y)
+{
+    return x>y?y:x;
+}
+
 /* Implement cache blocking below. You should NOT assume that n is a
  * multiple of the block size. */
 void transpose_blocking(int n, int blocksize, int *dst, int *src) {
     // YOUR CODE HERE
+    int blocks = (n+blocksize-1)/blocksize;
+    int rem = n%blocksize;
+    for(int i = 0 ;i < blocks;i++)
+    {
+        for(int j =0; j < blocks; j++)
+        {
+            int sx = blocksize*i, sy = blocksize*j;
+            for(int dx = sx; dx<min(n, sx+blocksize);dx++)
+            {
+                for(int dy=sy; dy<min(n, sy+blocksize); dy++)
+                {
+                    dst[dy+dx*n] = src[dx+dy*n];
+                    // printf("%d %d\n", dx, dy);
+                }
+            }
+        }
+    }
+
 } 
 
 void benchmark(int *A, int *B, int n, int blocksize, 
@@ -25,9 +48,9 @@ void benchmark(int *A, int *B, int n, int blocksize,
     printf("Testing %s: ", description);
 
     /* initialize A,B to random integers */
-    srand48( time( NULL ) );
-    for( i = 0; i < n*n; i++ ) A[i] = lrand48( );
-    for( i = 0; i < n*n; i++ ) B[i] = lrand48( );
+    // srand( time( NULL ) );
+    for( i = 0; i < n*n; i++ ) A[i] = rand( );
+    for( i = 0; i < n*n; i++ ) B[i] = rand( );
 
     /* measure performance */
     struct timeval start, end;

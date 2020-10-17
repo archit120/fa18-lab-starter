@@ -1,0 +1,10 @@
+Which ordering(s) perform best for these 1000-by-1000 matrices? Why?
+jki and kji. The innermost loops accesses data sequentially exploting temporal locality. 
+
+Which ordering(s) perform the worst? Why?
+The worst performers are ijk, ikj, jik and kij. All perform about the same as bad because the innermost loop is nop able to exploit temporal locality
+
+
+How does the way we stride through the matrices with respect to the innermost loop affect performance?
+If the innermost loop has a stride of 1 then the performance is fast otherwise with stride n its bad. innermost loop has the strongest effect. 
+

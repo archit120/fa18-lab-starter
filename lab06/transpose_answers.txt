@@ -1,0 +1,46 @@
+Part 1: Changing Array Sizes
+Fix the blocksize to be 20, and run your code with n equal to 100, 1000, 2000, 5000, and 10000. 
+At what point does cache blocked version of transpose become faster than the non-cache blocked version? 
+Why does cache blocking require the matrix to be a certain size before it outperforms the non-cache blocked code?
+
+(base) PS N:\COA self study\fa18-lab-starter\lab06> ./a 100 20  
+Testing naive transpose: 0 milliseconds
+Testing transpose with blocking: 0 milliseconds
+(base) PS N:\COA self study\fa18-lab-starter\lab06> ./a 1000 20
+Testing naive transpose: 0.976 milliseconds
+Testing transpose with blocking: 2.931 milliseconds
+(base) PS N:\COA self study\fa18-lab-starter\lab06> ./a 2000 20
+Testing naive transpose: 5.864 milliseconds
+Testing transpose with blocking: 7.817 milliseconds
+(base) PS N:\COA self study\fa18-lab-starter\lab06> ./a 5000 20
+Testing naive transpose: 92.829 milliseconds
+Testing transpose with blocking: 49.834 milliseconds
+(base) PS N:\COA self study\fa18-lab-starter\lab06> ./a 10000 20
+Testing naive transpose: 551.107 milliseconds
+Testing transpose with blocking: 190.543 milliseconds
+
+Becomes faster after 5000 elements. Before that most elements can be kept at the cache in the same time
+
+
+(Sanity check: the blocked version isn't faster than the naive version until the matrix size is sufficiently big.)
+
+Part 2: Changing Blocksize
+Fix n to be 10000, and run your code with blocksize equal to 50, 100, 500, 1000, 5000. How does performance change as the blocksize increases? Why is this the case?
+
+(base) PS N:\COA self study\fa18-lab-starter\lab06> ./a 10000 50
+Testing naive transpose: 553.061 milliseconds
+Testing transpose with blocking: 170.999 milliseconds
+(base) PS N:\COA self study\fa18-lab-starter\lab06> ./a 10000 100
+Testing naive transpose: 555.992 milliseconds
+Testing transpose with blocking: 152.434 milliseconds
+(base) PS N:\COA self study\fa18-lab-starter\lab06> ./a 10000 500
+Testing naive transpose: 567.719 milliseconds
+Testing transpose with blocking: 117.257 milliseconds
+(base) PS N:\COA self study\fa18-lab-starter\lab06> ./a 10000 1000
+Testing naive transpose: 565.764 milliseconds
+Testing transpose with blocking: 144.617 milliseconds
+(base) PS N:\COA self study\fa18-lab-starter\lab06> ./a 10000 5000
+Testing naive transpose: 546.222 milliseconds
+Testing transpose with blocking: 539.382 milliseconds
+
+Best at blocksize 500. Blocksize 5000 is virtually the same as no blocking. Too large block size means that we are again running out of cache size. 
