@@ -12,7 +12,7 @@ SOURCES = $(wildcard *.java)
 # Output JAR file
 TARGET = wc.jar
 # Extra JARs to have on the classpath when compiling.
-CLASSPATH = /home/ff/cs61c/hadoop-0.20.2+737/hadoop-core.jar:/home/ff/cs61c/hadoop-0.20.2+737/lib/commons-cli.jar
+CLASSPATH = $(CURDIR)/hadoop-0.20.2+737/hadoop-core.jar:$(CURDIR)/hadoop-0.20.2+737/lib/commons-cli.jar
 # javac command to use
 JAVAC = javac -g -deprecation -cp $(CLASSPATH)
 # jar command to use
@@ -32,11 +32,11 @@ $(TARGET): classes $(SOURCES)
 
 wordcount-small: $(TARGET)
 	rm -rf wc-out-wordcount-small
-	hadoop jar wc.jar WordCount ~cs61c/data/billOfRights.txt.seq wc-out-wordcount-small
+	hadoop jar wc.jar WordCount data/billOfRights.txt.seq wc-out-wordcount-small
 
 wordcount-medium: $(TARGET)
 	rm -rf wc-out-wordcount-medium
-	hadoop jar wc.jar WordCount ~cs61c/data/complete-works-mark-twain.txt.seq wc-out-wordcount-medium
+	hadoop jar wc.jar WordCount data/complete-works-mark-twain.txt.seq wc-out-wordcount-medium
 
 wordcount: $(TARGET)
 	rm -rf wc-out-wordcount
@@ -44,11 +44,11 @@ wordcount: $(TARGET)
 
 docwordcount-small: $(TARGET)
 	rm -rf wc-out-docwordcount-small
-	hadoop jar wc.jar DocWordCount ~cs61c/data/billOfRights.txt.seq wc-out-docwordcount-small
+	hadoop jar wc.jar DocWordCount data/billOfRights.txt.seq wc-out-docwordcount-small
 
 docwordcount-medium: $(TARGET)
 	rm -rf wc-out-docwordcount-medium
-	hadoop jar wc.jar DocWordCount ~cs61c/data/complete-works-mark-twain.txt.seq wc-out-docwordcount-medium
+	hadoop jar wc.jar DocWordCount data/complete-works-mark-twain.txt.seq wc-out-docwordcount-medium
 
 docwordcount: $(TARGET)
 	rm -rf wc-out-docwordcount
@@ -57,40 +57,40 @@ docwordcount: $(TARGET)
 
 sparkwc-small:
 	rm -rf spark-wc-out-wordcount-small
-	spark-submit wordcount.py /home/ff/cs61c/data/billOfRights.txt.seq spark-wc-out-wordcount-small
+	"$(CURDIR)/spark-2.4.7-bin-hadoop2.7/bin/spark-submit" wordcount.py "$(CURDIR)/data/billOfRights.txt.seq" spark-wc-out-wordcount-small
 
 sparkwc-medium:
 	rm -rf spark-wc-out-wordcount-medium
-	spark-submit wordcount.py /home/ff/cs61c/data/complete-works-mark-twain.txt.seq spark-wc-out-wordcount-medium
+	"$(CURDIR)/spark-2.4.7-bin-hadoop2.7/bin/spark-submit" wordcount.py "$(CURDIR)/data/complete-works-mark-twain.txt.seq" spark-wc-out-wordcount-medium
 
 sparkwc:
 	rm -rf spark-wc-out-wordcount
-	spark-submit wordcount.py $(myinput) spark-wc-out-wordcount
+	"$(CURDIR)/spark-2.4.7-bin-hadoop2.7/bin/spark-submit" wordcount.py $(myinput) spark-wc-out-wordcount
 
 sparkdwc-small:
 	rm -rf spark-wc-out-docwordcount-small
-	spark-submit docwordcount.py /home/ff/cs61c/data/billOfRights.txt.seq spark-wc-out-docwordcount-small
+	"$(CURDIR)/spark-2.4.7-bin-hadoop2.7/bin/spark-submit" docwordcount.py "$(CURDIR)/data/billOfRights.txt.seq" spark-wc-out-docwordcount-small
 
 sparkdwc-medium:
 	rm -rf spark-wc-out-docwordcount-medium
-	spark-submit docwordcount.py /home/ff/cs61c/data/complete-works-mark-twain.txt.seq spark-wc-out-docwordcount-medium
+	"$(CURDIR)/spark-2.4.7-bin-hadoop2.7/bin/spark-submit" docwordcount.py "$(CURDIR)/data/complete-works-mark-twain.txt.seq" spark-wc-out-docwordcount-medium
 
 sparkdwc:
 	rm -rf spark-wc-out-docwordcount
-	spark-submit docwordcount.py $(myinput) spark-wc-out-docwordcount
+	"$(CURDIR)/spark-2.4.7-bin-hadoop2.7/bin/spark-submit" docwordcount.py $(myinput) spark-wc-out-docwordcount
 
 
 index-small:
 	rm -rf spark-wc-out-index-small
-	spark-submit index.py /home/ff/cs61c/data/billOfRights.txt.seq spark-wc-out-index-small
+	"$(CURDIR)/spark-2.4.7-bin-hadoop2.7/bin/spark-submit" index.py "$(CURDIR)/data/billOfRights.txt.seq" spark-wc-out-index-small
 
 index-medium:
 	rm -rf spark-wc-out-index-medium
-	spark-submit index.py /home/ff/cs61c/data/complete-works-mark-twain.txt.seq spark-wc-out-index-medium
+	"$(CURDIR)/spark-2.4.7-bin-hadoop2.7/bin/spark-submit" index.py "$(CURDIR)/data/complete-works-mark-twain.txt.seq" spark-wc-out-index-medium
 
 index:
 	rm -rf spark-wc-out-index
-	spark-submit index.py $(myinput) spark-wc-out-index
+	"$(CURDIR)/spark-2.4.7-bin-hadoop2.7/bin/spark-submit" index.py $(myinput) spark-wc-out-index
 
 
 generate-input: $(TARGET)

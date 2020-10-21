@@ -13,15 +13,15 @@ def flatMapFunc(document):
     can we use the document ID to help get around that problem?
     """
     """ Your code here. """
-    return re.findall(r"\w+", document[1])
+    return list(set([(document[0], x) for x in re.findall(r"\w+", document[1])]))
 
 def mapFunc(arg):
     """ Your code here. """
-    return (arg, arg)
+    return (arg[1], 1)
 
 def reduceFunc(arg1, arg2):
     """ Your code here. """
-    return arg1
+    return arg1+arg2
 
 def docwordcount(file_name, output="spark-wc-out-docwordcount"):
     sc = SparkContext("local[8]", "DocWordCount")
@@ -29,7 +29,8 @@ def docwordcount(file_name, output="spark-wc-out-docwordcount"):
 
     counts = file.flatMap(flatMapFunc) \
                  .map(mapFunc) \
-                 .reduceByKey(reduceFunc)
+                 .reduceByKey(reduceFunc) \
+                 .sortByKey()
 
     counts.coalesce(1).saveAsTextFile(output)
 
