@@ -189,3 +189,10 @@ $RECYCLE.BIN/
 
 
 # End of https://www.gitignore.io/api/c,vim,macos,linux,emacs,windows
+lab09/openmp/dotp
+lab09/openmp/hello
+lab09/openmp/v_add
+lab09/openmp/.vscode/settings.json
+lab09/openmp/.vscode/c_cpp_properties.json
+lab09/simd/simd
+lab09/simd/.vscode/c_cpp_properties.json
