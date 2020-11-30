@@ -1,0 +1,1 @@
+This repository contains my solutions to the labs, discussions and project 3 of CS61C at UC Berkeley fall 2018. The solutions have not been graded so it's best to not rely on them.
